@@ -171,7 +171,7 @@ func (s *MatcherSuite) SetUpTest(c *C) {
 }
 
 func (s *MatcherSuite) TestDir_ReadPatterns(c *C) {
-	ps, err := ReadPatterns(s.GFS, nil)
+	ps, err := ReadPatterns(s.GFS, nil, []string{".gitignore"})
 	c.Assert(err, IsNil)
 	c.Assert(ps, HasLen, 3)
 

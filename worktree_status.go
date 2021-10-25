@@ -142,7 +142,7 @@ func (w *Worktree) diffStagingWithWorktree(reverse bool) (merkletrie.Changes, er
 }
 
 func (w *Worktree) excludeIgnoredChanges(changes merkletrie.Changes) merkletrie.Changes {
-	patterns, err := gitignore.ReadPatterns(w.Filesystem, nil)
+	patterns, err := gitignore.ReadPatterns(w.Filesystem, nil, []string{".gitignore"})
 	if err != nil {
 		return changes
 	}
