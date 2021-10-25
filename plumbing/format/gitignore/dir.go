@@ -3,6 +3,7 @@ package gitignore
 import (
 	"bufio"
 	"bytes"
+	"errors"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -49,7 +50,9 @@ func ReadPatterns(fs billy.Filesystem, path []string, ignoreFiles []string) (ps 
 	for _, filename := range ignoreFiles {
 		var subps []Pattern
 		if subps, err = readIgnoreFile(fs, path, filename); err != nil {
-			return ps, err
+			if !errors.Is(err, os.ErrNotExist) {
+				return ps, err
+			}
 		}
 		if len(subps) > 0 {
 			ps = append(ps, subps...)
